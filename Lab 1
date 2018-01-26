@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+int string_length(char* pWord);
+
+char* reverse(char* pWord);
+
+
+int main(int argc, char* argv[])
+
+{
+    char word[] = "Happy Birthday!";
+ 
+   printf("%s\n", word);
+   
+ printf("the length is %d\n",string_length(&word));
+
+  
+  return 0;
+}
+
+
+int string_length(char* pWord)
+
+{
+    int count = 0;
+  
+  while(*(pWord + count)!= '\0')
+   
+ {
+ 
+       count++;
+   
+ }
+    return count;
+
+}
+
+
+char* reverse(char* pWord)
+{
+	int length = 0, i;
+	char temp;
+	char* start;
+	char* end;
+
+	length = string_length(pWord);
+
+	//Now the start and the end are all point to the first element of the word
+	start = pWord;
+	end = pWord;
+
+	//Move the pointer end to the location of the last character 
+	for (i = 0; i < length - 1; i++)
+	{
+		end++;
+	}
+
+	for (i = 0; i < length / 2; i++)
+	{
+		temp = *end;
+		*end = *start;
+		*start = temp;
+
+		start++;
+		end--;
+
+	}
+	return start;
+
+}
