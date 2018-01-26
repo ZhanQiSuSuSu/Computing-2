@@ -1,0 +1,57 @@
+/*Lab 2
+  Zijun Cen*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int find_max(int* pSize, int* pArray);
+int* Array(int* pSize);
+
+int main(int argc, char* argv[])
+{	
+	int n , index;
+	int* p;
+	srand(time(0));
+	printf("Enter the size for an array: ");
+	scanf("%d", &n);
+	p = Array(&n);
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d\t", p[i]);
+	}
+	index = find_max(&n , p);
+	printf("\nThe largest index of the array is %d\n", index);
+	return 0;
+}
+
+int* Array(int* pSize)
+{
+	int s = *pSize;
+	int* p;
+	p = (int*)malloc(s * sizeof(int));
+	for (int i = 0; i < s; i++)
+	{
+		p[i] = rand();
+
+	}
+	return p;
+}
+
+int find_max(int* pSize ,int* pArray)
+{	
+	int s = *pSize , k = 0;
+	int max_index = 0;
+	int* p = pArray;
+	int max = p[k];
+
+	for (int j = 0; j < s; j++)
+	{
+		if (p[j] > max)
+		{
+			max = p[j];
+			max_index = j;
+		}
+	}
+	free(p);
+	return max_index;
+}
