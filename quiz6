@@ -1,0 +1,80 @@
+#include <stdio.h>
+
+int check_flag(unsigned int flag_holder[], int flag_position)
+{
+
+	unsigned int m;
+	m = 1 << (flag_position);
+	if ((flag_holder[0] & m) != 0)
+		return 1;
+	else
+		return 0;
+}
+void set_flag(unsigned int flag_holder[], int flag_position) {
+
+	unsigned int s;
+	unsigned int i = 1;
+	int order = flag_position / 32;
+
+	s = i << flag_position;
+	flag_holder[order] = flag_holder[order] | s;
+}
+
+void display_32_flags_as_array(unsigned int flag_holder) {
+	int j;
+	int i[1] = { 0 };
+	i[0] = flag_holder;
+	for (j = 0; j < 32; j++)
+	{
+		if (j % 4 == 0)
+			printf(" ");
+		printf("%d", check_flag(i, j));
+	}
+	printf("\n");
+	
+}
+
+void unset_flag(unsigned int flag_holder[], int flag_position)
+{
+	int order = (flag_position / 32);
+	flag_holder[order] = flag_holder[order] & ~(1 << flag_position);
+}
+
+
+void display_flags(unsigned int flag_holder[], int size) {
+
+	int j;
+	for (j = 0; j < size; j++) {
+		display_32_flags_as_array(flag_holder[j]);
+	}
+
+
+}
+
+int main(int argc, char* argv[])
+{
+	unsigned int flag_holder[5] = { 0 };/**********这是个五个0的数组 二进制里为000000000
+                                                                           000000000
+                                                                           000000000 
+                                                                           000000000 
+                                                                           000000000 
+                                                                           **********/
+	set_flag(flag_holder, 3);
+	set_flag(flag_holder, 16);
+	set_flag(flag_holder, 31);
+	set_flag(flag_holder, 87);
+	
+	display_flags(flag_holder, 5);
+
+	printf("\n\n");
+
+	unset_flag(flag_holder, 31);
+	unset_flag(flag_holder, 3);
+	set_flag(flag_holder, 99);
+	set_flag(flag_holder, 100);
+	
+	display_flags(flag_holder, 5);
+
+
+	return 0;
+}
