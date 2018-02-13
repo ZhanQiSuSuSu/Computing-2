@@ -1,0 +1,16 @@
+/* Codo's reverselinkedlist by using recursively
+*/
+
+node *reverseLinkedListRecursively(node *rest, node *reversed)
+{
+    node *current;
+
+    if (rest == NULL)
+        return reversed;
+
+    current = rest;
+    rest = rest->next;
+    current->next = reversed;
+
+    return reverseLinkedListRecursively(rest, current);
+}
