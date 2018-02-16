@@ -1,0 +1,138 @@
+Main.c
+#include <stdio.h>
+#include <stdlib.h>
+#include "my_string.h"
+
+int main(int argc, char* argv[])
+{
+    MY_STRING hMy_string1 = NULL;
+    MY_STRING hMy_string2 = NULL;
+    int size1;
+    int size2;
+    int capacity1;
+    int capacity2;
+    int compare;
+
+    hMy_string1 = my_string_init_c_string("hii");
+    size1 = my_string_get_size(hMy_string1);
+    capacity1 = my_string_get_capacity(hMy_string1);
+    printf("the size and the capacity for string 1 is %d and %d\n",size1,capacity1);    
+
+    hMy_string2 = my_string_init_c_string("hy");
+    size2 = my_string_get_size(hMy_string2);
+    capacity2 = my_string_get_capacity(hMy_string2);
+    printf("the size and the capacity for string 2 is %d and %d\n",size2,capacity2);
+    compare = my_string_compare(hMy_string1,hMy_string2);
+    printf("the compare is%d\n",compare);
+    my_string_destroy(&hMy_string1);
+    my_string_destroy(&hMy_string2);
+
+    return 0;
+}
+
+my_string.h
+typedef void* MY_STRING;
+
+struct my_string
+    {
+   	 int size;
+   	 int capacity;
+   	 char* data;
+    };
+typedef struct my_string St_mystring;
+
+MY_STRING my_string_init_default(void);
+
+MY_STRING my_string_init_c_string(const char* c_string);
+
+void my_string_destroy(MY_STRING* phMY_string);
+
+int my_string_get_capacity(MY_STRING hMy_string);
+
+int my_string_get_size(MY_STRING hMy_string);
+
+int my_string_compare(MY_STRING hLeft_string, MY_STRING hRight_string);
+
+
+
+
+my_string.c
+	if (pMY_string != NULL)
+    {
+   	 pMY_string->size = 0;
+   	 pMY_string->capacity = 7;
+   	 pMY_string->data = (char*)(malloc(sizeof(char) * pMY_string->capacity));
+   	 if (pMY_string-> data == NULL)    
+   	 {
+   		 free(pMY_string);
+   		 pMY_string = NULL;   				 
+   	 }
+    }
+    return pMY_string;
+}
+
+MY_STRING my_string_init_c_string(const char* c_string)
+{    
+    int length = strlen(c_string);
+    St_mystring* pc_string;
+    pc_string = (St_mystring*)malloc(sizeof(St_mystring));    
+    if (pc_string != NULL)
+    {
+   	 pc_string->size = length;
+   	 pc_string->capacity = length + 1;
+   	 pc_string->data = (char*)(malloc(sizeof(char) * pc_string->capacity));
+   	 for(int i=0; i< length ; i++)
+   	 {
+   		 pc_string->data[i] = c_string[i];
+   	 }
+    }
+    else if(pc_string->data == NULL)
+    {
+   	 free(pc_string);
+   	 pc_string = NULL;    
+    }    
+    return pc_string;
+}
+
+void my_string_destroy(MY_STRING* phMY_string){
+    St_mystring* pMY_string = (St_mystring*)*phMY_string;
+    free(pMY_string -> data);
+    free(pMY_string);
+    *phMY_string = NULL;
+return;
+}
+
+int my_string_get_capacity(MY_STRING hMy_string)
+{
+    St_mystring* pMy_string = (St_mystring*) hMy_string;
+    return pMy_string->capacity;
+}
+
+int my_string_get_size(MY_STRING hMy_string)
+{
+    St_mystring* pMy_string = (St_mystring*) hMy_string;
+    return pMy_string->size;
+}
+    
+int my_string_compare(MY_STRING hLeft_string, MY_STRING hRight_string)
+{
+    St_mystring* s1 = (St_mystring*) hLeft_string;
+    St_mystring* s2 = (St_mystring*) hRight_string;
+    for(int i=0; i < s1->size && i < s2->size;i++)
+    {
+   	 if(s1->data[i] > s2->data[i])
+   	 {
+   		 return 1;
+   		 break;
+   	 }
+   	 else if(s1->data[i] < s2->data[i])
+   	 {
+   		 return -1;
+   		 break;
+   	 }
+    }
+    return 0;
+    
+
+
+  }
