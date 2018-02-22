@@ -1,0 +1,4 @@
+http://www.tutorialspoint.com/c_standard_library/c_function_realloc.htm //resize function
+https://www.tutorialspoint.com/c_standard_library/c_function_feof.htm //test the end of file
+https://www.tutorialspoint.com/c_standard_library/c_function_fgets.htm //read the file
+https://www.tutorialspoint.com/c_standard_library/c_function_ungetc.htm //pushes the character char onto the specified stream so that the this is available for the next read operation.
